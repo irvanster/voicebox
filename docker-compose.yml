@@ -1,19 +1,25 @@
 services:
   voicebox:
-    build: .
+    build:
+      context: .
+      args:
+        - LOG_LEVEL=${LOG_LEVEL:-info}
+        - NUMBA_CACHE_DIR=${NUMBA_CACHE_DIR:-/tmp/numba_cache}
+        - VOICEBOX_CORS_ORIGINS=${VOICEBOX_CORS_ORIGINS:-https://$SERVICE_FQDN_VOICEBOX}
+        - VOICEBOX_FORCE_CPU=${VOICEBOX_FORCE_CPU:-1}
     container_name: voicebox
     restart: unless-stopped
     ports:
-      - "${PORT_17493:-17493}:17493"
+      - '${PORT_17493:-17493}:17493'
     volumes:
-      - voicebox-output:/app/data/generations
-      - voicebox-data:/app/data
-      - huggingface-cache:/home/voicebox/.cache/huggingface
+      - 'voicebox-output:/app/data/generations'
+      - 'voicebox-data:/app/data'
+      - 'huggingface-cache:/home/voicebox/.cache/huggingface'
     environment:
-      - LOG_LEVEL=${LOG_LEVEL:-info}
-      - NUMBA_CACHE_DIR=${NUMBA_CACHE_DIR:-/tmp/numba_cache}
-      - VOICEBOX_CORS_ORIGINS=${VOICEBOX_CORS_ORIGINS:-https://$SERVICE_FQDN_VOICEBOX}
-      - VOICEBOX_FORCE_CPU=${VOICEBOX_FORCE_CPU:-1}
+      - 'LOG_LEVEL=${LOG_LEVEL:-info}'
+      - 'NUMBA_CACHE_DIR=${NUMBA_CACHE_DIR:-/tmp/numba_cache}'
+      - 'VOICEBOX_CORS_ORIGINS=${VOICEBOX_CORS_ORIGINS:-https://$SERVICE_FQDN_VOICEBOX}'
+      - 'VOICEBOX_FORCE_CPU=${VOICEBOX_FORCE_CPU:-1}'
     networks:
       - coolify
 
@@ -22,6 +28,6 @@ networks:
     external: true
 
 volumes:
-  voicebox-output:
-  voicebox-data:
-  huggingface-cache:
+  voicebox-output: null
+  voicebox-data: null
+  huggingface-cache: null
