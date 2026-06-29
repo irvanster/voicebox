@@ -14,7 +14,7 @@ services:
     volumes:
       - 'voicebox-output:/app/data/generations'
       - 'voicebox-data:/app/data'
-      - 'huggingface-cache:/home/voicebox/.cache/huggingface'
+      - 'huggingface-cache:/app/data/cache/huggingface'
     environment:
       - 'LOG_LEVEL=${LOG_LEVEL:-info}'
       - 'NUMBA_CACHE_DIR=${NUMBA_CACHE_DIR:-/tmp/numba_cache}'
