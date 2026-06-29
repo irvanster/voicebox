@@ -44,6 +44,18 @@ RUN pip install --no-cache-dir --prefix=/install \
 # === Stage 3: Runtime ===
 FROM python:3.11-slim
 
+# --- DEKLARASI ARG COOLIFY DI SINI ---
+ARG LOG_LEVEL
+ARG NUMBA_CACHE_DIR
+ARG VOICEBOX_CORS_ORIGINS
+ARG VOICEBOX_FORCE_CPU
+
+# --- JADIKAN ENV RUNTIME ---
+ENV LOG_LEVEL=${LOG_LEVEL}
+ENV NUMBA_CACHE_DIR=${NUMBA_CACHE_DIR}
+ENV VOICEBOX_CORS_ORIGINS=${VOICEBOX_CORS_ORIGINS}
+ENV VOICEBOX_FORCE_CPU=${VOICEBOX_FORCE_CPU}
+
 # Create non-root user for security
 RUN groupadd -r voicebox && \
     useradd -r -g voicebox -m -s /bin/bash voicebox
